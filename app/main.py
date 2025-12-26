@@ -29,8 +29,10 @@ class Dictionary:
     def __getitem__(self, key: Any) -> Any:
         try:
             self.index_key = hash(key) % self.max_length
-            self.check_item(hash(key), key)
-            return self.my_dict[self.index_key][2]
+            if self.check_item(hash(key), key):
+                return self.my_dict[self.index_key][2]
+            else:
+                raise KeyError
         except IndexError:
             raise KeyError(key)
 
